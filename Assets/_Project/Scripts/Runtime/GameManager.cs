@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private FadeTransition _fadeTransition; 
+    private FadeTransition _fadeTransition;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _fadeTransition.StarFade(1);
         }
