@@ -8,8 +8,8 @@ public class AudioController : MonoBehaviour
     [SerializeField] private Slider _slider;
     [SerializeField] private GameObject btnok;
 
-    [SerializeField] private AudioSource _audioSourceMusic;
-    [SerializeField] private AudioSource _audioSourceFx;
+    public AudioSource _audioSourceMusic;
+    public AudioSource _audioSourceFx;
 
     public AudioClip title;
     public AudioClip start;
@@ -51,6 +51,8 @@ public class AudioController : MonoBehaviour
         _audioSourceMusic.loop = true;
 
         btnok.SetActive(true);
+
+        SceneManager.LoadScene(1);
     }
 
     public IEnumerator ChangeMusic(AudioClip newClip)
@@ -71,8 +73,6 @@ public class AudioController : MonoBehaviour
             _audioSourceMusic.volume = v;
             yield return new WaitForEndOfFrame();
         }
-
-
     }
 
 }

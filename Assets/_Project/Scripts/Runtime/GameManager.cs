@@ -7,15 +7,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _fadeTransition = FindObjectOfType<FadeTransition>();
+        _fadeTransition = FindAnyObjectByType<FadeTransition>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _fadeTransition.StarFade(1);
-        }
+       
     }
 }

@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    [SerializeField] private AudioController _audioController;
+    private AudioController _audioController;
+
+    private FadeTransition _fadeTransition;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _fadeTransition = FindAnyObjectByType<FadeTransition>();
+        _audioController = FindAnyObjectByType<AudioController>();
     }
 
     // Update is called once per frame
@@ -18,8 +18,8 @@ public class SceneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(_audioController.ChangeMusic(_audioController.grass));
-            SceneManager.LoadScene(1);
+            StartCoroutine(_audioController.ChangeMusic(_audioController.start));
+            _fadeTransition.StarFade(2);
         }
     }
 }
