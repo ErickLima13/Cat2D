@@ -24,6 +24,7 @@ public class LoadGame : MonoBehaviour
             _verify = true;
             StartCoroutine(_audioController.ChangeMusic(_audioController.grass));
             _fadeTransition.StarFade(3);
+            _audioController._audioSourceMusic.loop = true;
         }
     }
 }
