@@ -273,7 +273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 2
+      name: Fall
       rect:
         serializedVersion: 2
         x: 1600
@@ -294,7 +294,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 4
+      name: Fall 1
       rect:
         serializedVersion: 2
         x: 1800
@@ -815,6 +815,8 @@ TextureImporter:
       Dead 1: -1724058601
       Dead 2: -1819576352
       Dead 3: -1544116965
+      Fall: -1762712429
+      Fall 1: 909042225
       Hammer: 638063580
       Hammer 1: 774287963
       Hammer 2: -521969032
@@ -823,8 +825,6 @@ TextureImporter:
       Idle 2: 1430985801
       Jump: -1804645979
       Jump 1: -1001076278
-      Jump 2: -1762712429
-      Jump 4: 909042225
       Shoot: -1784669682
       Shoot 1: -7436316
       Shoot 3: 1544634622
