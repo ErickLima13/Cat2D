@@ -315,7 +315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hammer
+      name: Hammer 1
       rect:
         serializedVersion: 2
         x: 0
@@ -336,7 +336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hammer 1
+      name: Hammer
       rect:
         serializedVersion: 2
         x: 200
@@ -817,8 +817,8 @@ TextureImporter:
       Dead 3: -1544116965
       Fall: -1762712429
       Fall 1: 909042225
-      Hammer: 638063580
-      Hammer 1: 774287963
+      Hammer: 774287963
+      Hammer 1: 638063580
       Hammer 2: -521969032
       Idle: 311753833
       Idle 1: 858387036
