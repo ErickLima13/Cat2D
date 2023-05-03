@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool isOnTheGround;
     [SerializeField] private bool isWaiting;
+    [SerializeField] private bool isAttacking;
 
     [Range(0, 1000)] public float jumpForce;
     [Range(0, 50)] public float speed;
+    public float delayAttackTime;
 
     public Transform groundCheckL;
     public Transform groundCheckR;
@@ -43,8 +45,10 @@ public class PlayerController : MonoBehaviour
         MovementControl();
         Jump();
         AnimationsControl();
-        StartWaiting();
     }
+
+
+    #region Basic Movements
 
     private void MovementControl()
     {
@@ -61,6 +65,9 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRigidBody2D.velocity = new(horizontal * speed, playerRigidBody2D.velocity.y);
+
+        AttackWithHammer();
+        ShootAttack();
     }
 
     private void Flip()
@@ -71,7 +78,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new(scaleX, transform.localScale.y, transform.localScale.z);
     }
 
-
+    
     private void GroundCheck()
     {
         isOnTheGround = Physics2D.OverlapArea(groundCheckL.position, groundCheckR.position, groundLayer);
@@ -87,13 +94,54 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Special Movements
+
+    private void AttackWithHammer()
+    {
+        if (Input.GetButtonDown("Fire1") && !isAttacking)
+        {
+            StopWaiting();
+            isAttacking = true;
+            playerAnimator.SetTrigger("Hammer"); 
+        }
+    }
+
+    private void ShootAttack()
+    {
+        if (Input.GetButtonDown("Fire2") && !isAttacking)
+        {
+            StopWaiting();
+            isAttacking = true;
+            playerAnimator.SetTrigger("Shoot"); 
+        }
+    }
+
+    public void OnAttackComplete()
+    {
+        StartCoroutine(DelayAttack());
+    }
+
+    private IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(delayAttackTime);
+        isAttacking = false;
+
+    }
+
+
+    #endregion
+
+    #region Animation
+
     private void AnimationsControl()
     {
         playerAnimator.SetInteger("SpeedX", (int)horizontal);
         playerAnimator.SetBool("Grounded", isOnTheGround);
         playerAnimator.SetFloat("SpeedY", playerRigidBody2D.velocity.y);
 
-       
+        StartWaiting();
     }
 
     private void StartWaiting()
@@ -105,9 +153,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (horizontal != 0 || !isOnTheGround)
         {
-            isWaiting = false;
-            StopCoroutine("TiredOfWaiting");
+            StopWaiting();
         }
+    }
+
+    private void StopWaiting()
+    {
+        isWaiting = false;
+        StopCoroutine(TiredOfWaiting());
     }
 
     private IEnumerator TiredOfWaiting()
@@ -116,4 +169,5 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetTrigger("Idle");
     }
 
+    #endregion
 }
