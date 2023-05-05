@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isLeft;
 
+    [Header("Shoot Attack")]
+    [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private Transform ballPos;
+    [SerializeField] private float speedBall;
 
     private void Initialization()
     {
@@ -75,6 +79,8 @@ public class PlayerController : MonoBehaviour
         isLeft = !isLeft;
         float scaleX = transform.localScale.x;
         scaleX *= -1f;
+        speedBall *= -1f;
+
         transform.localScale = new(scaleX, transform.localScale.y, transform.localScale.z);
     }
 
@@ -130,6 +136,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void SpawnShoot()
+    {
+        GameObject temp = Instantiate(ballPrefab, ballPos.position, Quaternion.identity);
+        temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);
+    }
 
     #endregion
 

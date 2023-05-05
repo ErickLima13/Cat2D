@@ -630,13 +630,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shoot 4
+      name: Ball
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 1448
-        width: 200
-        height: 200
+        x: 1165
+        y: 1536
+        width: 33
+        height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -808,6 +808,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Ball: 952091422
       Crawling: 1970926056
       Crawling 1: 1079814236
       Crawling 2: -2096604973
@@ -828,7 +829,6 @@ TextureImporter:
       Shoot: -1784669682
       Shoot 1: -7436316
       Shoot 3: 1544634622
-      Shoot 4: 952091422
       Stair: -421623570
       Stair 1: 804700291
       StarFly: 960652409
