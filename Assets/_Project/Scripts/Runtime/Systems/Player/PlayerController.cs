@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isOnTheGround;
     [SerializeField] private bool isWaiting;
     [SerializeField] private bool isAttacking;
+    [SerializeField] private bool isFlying;
 
     [Range(0, 1000)] public float jumpForce;
     [Range(0, 50)] public float speed;
@@ -27,10 +28,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform ballPos;
     [SerializeField] private float speedBall;
 
+    [Header("Fly Movement")]
+    [SerializeField] private float gravityDefault;
+    [SerializeField] private float flyGravity;
+
     private void Initialization()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+
+        gravityDefault = playerRigidBody2D.gravityScale;
     }
 
     // Start is called before the first frame update
@@ -47,10 +54,32 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovementControl();
+        AttackWithHammer();
+        ShootAttack();
         Jump();
+        FloatMove();
         AnimationsControl();
+        ControlGravity();
     }
 
+    #region Utilities
+
+    private void ChangeGravityScale(float gravity)
+    {
+        playerRigidBody2D.gravityScale = gravity;
+    }
+
+    private void ControlGravity()
+    {
+        if (isOnTheGround)
+        {
+            isFlying = false;
+            ChangeGravityScale(gravityDefault);
+        }
+    }
+
+
+    #endregion
 
     #region Basic Movements
 
@@ -68,10 +97,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        playerRigidBody2D.velocity = new(horizontal * speed, playerRigidBody2D.velocity.y);
-
-        AttackWithHammer();
-        ShootAttack();
+        playerRigidBody2D.velocity = new(horizontal * speed, playerRigidBody2D.velocity.y); 
     }
 
     private void Flip()
@@ -124,6 +150,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void FloatMove()
+    {
+        if(Input.GetButtonDown("Jump") && !isOnTheGround && !isFlying)
+        {
+            isFlying = true;
+            ChangeGravityScale(flyGravity);
+        }
+    }
+
     public void OnAttackComplete()
     {
         StartCoroutine(DelayAttack());
@@ -142,6 +177,8 @@ public class PlayerController : MonoBehaviour
         temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);
     }
 
+    
+
     #endregion
 
     #region Animation
@@ -149,7 +186,10 @@ public class PlayerController : MonoBehaviour
     private void AnimationsControl()
     {
         playerAnimator.SetInteger("SpeedX", (int)horizontal);
+
         playerAnimator.SetBool("Grounded", isOnTheGround);
+        playerAnimator.SetBool("isFly", isFlying);
+
         playerAnimator.SetFloat("SpeedY", playerRigidBody2D.velocity.y);
 
         StartWaiting();
