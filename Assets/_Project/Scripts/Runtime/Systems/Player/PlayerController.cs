@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D playerRigidBody2D;
-    private Animator playerAnimator;
+    public Rigidbody2D playerRigidBody2D;
+    private PlayerAnimator playerAnimator;
 
-    private float horizontal;
+    public float Horizontal { get; private set; }
 
-    [SerializeField] private bool isOnTheGround;
-    [SerializeField] private bool isWaiting;
-    [SerializeField] private bool isAttacking;
-    [SerializeField] private bool isFlying;
+    public bool IsOnTheGround { get; private set; }
+    public bool IsAttacking { get; private set; }
+    public bool IsFlying { get; private set; }
 
     [Range(0, 1000)] public float jumpForce;
     [Range(0, 50)] public float speed;
@@ -21,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckR;
     public LayerMask groundLayer;
 
-    public bool isLeft;
+    private bool isLeft;
 
     [Header("Shoot Attack")]
     [SerializeField] private GameObject ballPrefab;
@@ -32,10 +31,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityDefault;
     [SerializeField] private float flyGravity;
 
+    [Header("Colliders")]
+    [SerializeField] private CapsuleCollider2D capsuleFly;
+
     private void Initialization()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponent<Animator>();
+        playerAnimator = GetComponent<PlayerAnimator>();
 
         gravityDefault = playerRigidBody2D.gravityScale;
     }
@@ -58,7 +60,6 @@ public class PlayerController : MonoBehaviour
         ShootAttack();
         Jump();
         FloatMove();
-        AnimationsControl();
         ControlGravity();
     }
 
@@ -71,11 +72,17 @@ public class PlayerController : MonoBehaviour
 
     private void ControlGravity()
     {
-        if (isOnTheGround)
+        if (IsOnTheGround)
         {
-            isFlying = false;
-            ChangeGravityScale(gravityDefault);
+            capsuleFly.enabled = false;
+            CancelFly();
         }
+    }
+
+    private void CancelFly()
+    {
+        IsFlying = false;
+        ChangeGravityScale(gravityDefault);
     }
 
 
@@ -85,19 +92,19 @@ public class PlayerController : MonoBehaviour
 
     private void MovementControl()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        Horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (isLeft && horizontal > 0)
+        if (isLeft && Horizontal > 0)
         {
             Flip();
         }
 
-        if (!isLeft && horizontal < 0)
+        if (!isLeft && Horizontal < 0)
         {
             Flip();
         }
 
-        playerRigidBody2D.velocity = new(horizontal * speed, playerRigidBody2D.velocity.y); 
+        playerRigidBody2D.velocity = new(Horizontal * speed, playerRigidBody2D.velocity.y);
     }
 
     private void Flip()
@@ -110,17 +117,17 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new(scaleX, transform.localScale.y, transform.localScale.z);
     }
 
-    
+
     private void GroundCheck()
     {
-        isOnTheGround = Physics2D.OverlapArea(groundCheckL.position, groundCheckR.position, groundLayer);
+        IsOnTheGround = Physics2D.OverlapArea(groundCheckL.position, groundCheckR.position, groundLayer);
 
         Debug.DrawLine(groundCheckL.position, groundCheckR.position, Color.yellow);
     }
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && isOnTheGround)
+        if (Input.GetButtonDown("Jump") && IsOnTheGround)
         {
             playerRigidBody2D.AddForce(new Vector2(0, jumpForce));
         }
@@ -132,29 +139,33 @@ public class PlayerController : MonoBehaviour
 
     private void AttackWithHammer()
     {
-        if (Input.GetButtonDown("Fire1") && !isAttacking)
+        if (Input.GetButtonDown("Fire1") && !IsAttacking)
         {
-            StopWaiting();
-            isAttacking = true;
-            playerAnimator.SetTrigger("Hammer"); 
+            playerAnimator.StopWaiting();
+            CancelFly();
+            IsAttacking = true;
+            playerAnimator.AnimatorSetTrigger("Hammer");
         }
     }
 
     private void ShootAttack()
     {
-        if (Input.GetButtonDown("Fire2") && !isAttacking)
+        if (Input.GetButtonDown("Fire2") && !IsAttacking)
         {
-            StopWaiting();
-            isAttacking = true;
-            playerAnimator.SetTrigger("Shoot"); 
+            playerAnimator.StopWaiting();
+            CancelFly();
+            IsAttacking = true;
+            playerAnimator.AnimatorSetTrigger("Shoot");
         }
     }
 
     private void FloatMove()
     {
-        if(Input.GetButtonDown("Jump") && !isOnTheGround && !isFlying)
+        if (Input.GetButtonDown("Jump") && !IsOnTheGround && !IsFlying && !IsAttacking)
         {
-            isFlying = true;
+            capsuleFly.enabled = true;
+            playerRigidBody2D.velocity = new(playerRigidBody2D.velocity.x, 0);
+            IsFlying = true;
             ChangeGravityScale(flyGravity);
         }
     }
@@ -167,7 +178,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DelayAttack()
     {
         yield return new WaitForSeconds(delayAttackTime);
-        isAttacking = false;
+        IsAttacking = false;
 
     }
 
@@ -177,48 +188,6 @@ public class PlayerController : MonoBehaviour
         temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);
     }
 
-    
-
-    #endregion
-
-    #region Animation
-
-    private void AnimationsControl()
-    {
-        playerAnimator.SetInteger("SpeedX", (int)horizontal);
-
-        playerAnimator.SetBool("Grounded", isOnTheGround);
-        playerAnimator.SetBool("isFly", isFlying);
-
-        playerAnimator.SetFloat("SpeedY", playerRigidBody2D.velocity.y);
-
-        StartWaiting();
-    }
-
-    private void StartWaiting()
-    {
-        if (horizontal == 0 && isOnTheGround && !isWaiting)
-        {
-            isWaiting = true;
-            StartCoroutine(TiredOfWaiting());
-        }
-        else if (horizontal != 0 || !isOnTheGround)
-        {
-            StopWaiting();
-        }
-    }
-
-    private void StopWaiting()
-    {
-        isWaiting = false;
-        StopCoroutine(TiredOfWaiting());
-    }
-
-    private IEnumerator TiredOfWaiting()
-    {
-        yield return new WaitForSeconds(8);
-        playerAnimator.SetTrigger("Idle");
-    }
-
     #endregion
 }
+

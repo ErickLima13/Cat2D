@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &603988907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603988908}
+  - component: {fileID: 603988909}
+  m_Layer: 0
+  m_Name: FlyCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603988908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603988907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 128452815429156011}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &603988909
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603988907}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.11287819, y: 0.23986702}
+  m_Size: {x: 1.0564411, y: 0.82127815}
+  m_Direction: 1
 --- !u!1 &667906640
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +177,7 @@ GameObject:
   - component: {fileID: 128452815429156010}
   - component: {fileID: 128452815429156009}
   - component: {fileID: 128452815429156008}
+  - component: {fileID: 7313713828018296961}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -152,6 +201,7 @@ Transform:
   - {fileID: 128452816314615002}
   - {fileID: 667906642}
   - {fileID: 9046971109925493365}
+  - {fileID: 603988908}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -256,9 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b06338b5356704ab5bef6125a61746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOnTheGround: 0
-  isWaiting: 0
-  isAttacking: 0
+  horizontal: 0
   jumpForce: 400
   speed: 3
   delayAttackTime: 0.5
@@ -271,6 +319,9 @@ MonoBehaviour:
   ballPrefab: {fileID: 8911922094074318576, guid: 42cb2750b8f2ef2489a032926fdacd02, type: 3}
   ballPos: {fileID: 667906642}
   speedBall: 3
+  gravityDefault: 0
+  flyGravity: 0.2
+  capsuleFly: {fileID: 603988909}
 --- !u!95 &128452815429156008
 Animator:
   serializedVersion: 5
@@ -292,6 +343,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7313713828018296961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128452815429156014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde3e1c53dbd3144f8b80172fa868012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &128452816314615003
 GameObject:
   m_ObjectHideFlags: 0
