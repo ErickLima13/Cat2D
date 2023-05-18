@@ -239,11 +239,14 @@ public class PlayerController : MonoBehaviour
     {
         switch (collision.tag)
         {
-            case "Water":
-                CancelFly();
-                ChangeGravityScale(newGravity);
-                playerRigidBody2D.velocity = Vector2.zero;
-                IsSwim = true;
+            case "Submerse":
+                if (!IsSwim)
+                {
+                    IsFlying = false;
+                    ChangeGravityScale(newGravity);
+                    playerRigidBody2D.velocity = Vector2.zero;
+                    IsSwim = true;
+                }
                 break;
         }
     }
