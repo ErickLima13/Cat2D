@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
 
     public float Horizontal { get; private set; }
 
-    public bool IsOnTheGround { get; private set; }
-    public bool IsAttacking { get; private set; }
-    public bool IsFlying { get; private set; }
+    [field: SerializeField] public bool IsOnTheGround { get; private set; }
+    [field: SerializeField] public bool IsAttacking { get; private set; }
+    [field: SerializeField] public bool IsFlying { get; private set; }
+    [field: SerializeField] public bool IsSwim { get; private set; }
 
+    [Range(0, 1000)] public float swimForce;
     [Range(0, 1000)] public float jumpForce;
     [Range(0, 50)] public float speed;
     public float delayAttackTime;
@@ -27,15 +29,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform ballPos;
     [SerializeField] private float speedBall;
 
-    [Header("Fly Movement")]
+    [Header("Gravity Settings")]
     [SerializeField] private float gravityDefault;
-    [SerializeField] private float flyGravity;
+    [SerializeField] private float newGravity;
 
     [Header("Colliders")]
+    private CapsuleCollider2D defaultCol;
     [SerializeField] private CapsuleCollider2D capsuleFly;
+    [SerializeField] private CapsuleCollider2D capsuleSwim;
+
 
     private void Initialization()
     {
+        defaultCol = GetComponent<CapsuleCollider2D>();
         playerRigidBody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<PlayerAnimator>();
 
@@ -49,18 +55,33 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        GroundCheck();
+        if (!IsSwim)
+        {
+            GroundCheck();
+        }
+        else
+        {
+            IsOnTheGround = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         MovementControl();
-        AttackWithHammer();
-        ShootAttack();
-        Jump();
-        FloatMove();
-        ControlGravity();
+        UpdateColliders();
+
+        if (!IsSwim)
+        {
+            AttackWithHammer();
+            ShootAttack();
+            Jump();
+            FloatMove();
+        }
+        else
+        {
+            SwimMove();
+        }
     }
 
     #region Utilities
@@ -70,13 +91,28 @@ public class PlayerController : MonoBehaviour
         playerRigidBody2D.gravityScale = gravity;
     }
 
-    private void ControlGravity()
+    private void UpdateColliders()
     {
         if (IsOnTheGround)
         {
+            defaultCol.enabled = true;
             capsuleFly.enabled = false;
+            capsuleSwim.enabled = false;
             CancelFly();
         }
+        else if (IsFlying)
+        {
+            capsuleFly.enabled = true;
+            defaultCol.enabled = false;
+            capsuleSwim.enabled = false;
+        }
+        else if (IsSwim)
+        {
+            capsuleSwim.enabled = true;
+            defaultCol.enabled = false;
+            capsuleFly.enabled = false;
+        }
+
     }
 
     private void CancelFly()
@@ -163,11 +199,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && !IsOnTheGround && !IsFlying && !IsAttacking)
         {
-            capsuleFly.enabled = true;
-            playerRigidBody2D.velocity = new(playerRigidBody2D.velocity.x, 0);
+            playerRigidBody2D.velocity = new(playerRigidBody2D.velocity.x, newGravity);
             IsFlying = true;
-            ChangeGravityScale(flyGravity);
+            ChangeGravityScale(newGravity);
         }
+    }
+
+    private void SwimMove()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            playerRigidBody2D.AddForce(new Vector2(0, swimForce));
+        }
+
     }
 
     public void OnAttackComplete()
@@ -189,5 +233,30 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "Water":
+                CancelFly();
+                ChangeGravityScale(newGravity);
+                playerRigidBody2D.velocity = Vector2.zero;
+                IsSwim = true;
+                break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "Water":
+                CancelFly();
+                IsSwim = false;
+                break;
+        }
+    }
 }
 

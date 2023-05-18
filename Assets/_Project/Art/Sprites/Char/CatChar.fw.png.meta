@@ -651,7 +651,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Swin
+      name: Swim
       rect:
         serializedVersion: 2
         x: 1200
@@ -672,7 +672,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Swin 1
+      name: Swim 1
       rect:
         serializedVersion: 2
         x: 1400
@@ -693,7 +693,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Swin 2
+      name: Swim 2
       rect:
         serializedVersion: 2
         x: 1600
@@ -714,7 +714,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Swin 3
+      name: Swim 3
       rect:
         serializedVersion: 2
         x: 1800
@@ -834,10 +834,10 @@ TextureImporter:
       StarFly: 960652409
       StarFly 1: -275312754
       StarFly 2: -2138917916
-      Swin: -872219382
-      Swin 1: 947404878
-      Swin 2: 289762862
-      Swin 3: 1828839669
+      Swim: -872219382
+      Swim 1: 947404878
+      Swim 2: 289762862
+      Swim 3: 1828839669
       Walk: 1184588382
       Walk 1: -367916567
       Walk 2: -1689297948

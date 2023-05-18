@@ -39,6 +39,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("Grounded",  player.IsOnTheGround);
         animator.SetBool("isFly",player.IsFlying);
         animator.SetBool("isAttacking", player.IsAttacking);
+        animator.SetBool("isSwim", player.IsSwim);
 
         animator.SetFloat("SpeedY", player.playerRigidBody2D.velocity.y);
 

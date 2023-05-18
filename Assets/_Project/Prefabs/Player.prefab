@@ -132,6 +132,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1538525543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538525544}
+  - component: {fileID: 1538525545}
+  m_Layer: 0
+  m_Name: 'SwimCollider '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1538525544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538525543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 128452815429156011}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1538525545
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538525543}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011987684, y: -0.027460968}
+  m_Size: {x: 1.2582227, y: 0.80982786}
+  m_Direction: 1
 --- !u!1 &128452814622380830
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +250,7 @@ Transform:
   - {fileID: 667906642}
   - {fileID: 9046971109925493365}
   - {fileID: 603988908}
+  - {fileID: 1538525544}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -276,7 +325,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &128452815429156010
 CapsuleCollider2D:
@@ -306,7 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b06338b5356704ab5bef6125a61746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 0
+  playerRigidBody2D: {fileID: 0}
+  swimForce: 100
   jumpForce: 400
   speed: 3
   delayAttackTime: 0.5
@@ -315,13 +365,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  isLeft: 0
   ballPrefab: {fileID: 8911922094074318576, guid: 42cb2750b8f2ef2489a032926fdacd02, type: 3}
   ballPos: {fileID: 667906642}
   speedBall: 3
-  gravityDefault: 0
-  flyGravity: 0.2
+  gravityDefault: 1
+  newGravity: 0.3
   capsuleFly: {fileID: 603988909}
+  capsuleSwim: {fileID: 1538525545}
 --- !u!95 &128452815429156008
 Animator:
   serializedVersion: 5
