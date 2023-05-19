@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 128452815429156009}
   - component: {fileID: 128452815429156008}
   - component: {fileID: 7313713828018296961}
+  - component: {fileID: 1557503394}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -362,7 +363,7 @@ MonoBehaviour:
   <IsFlying>k__BackingField: 0
   <IsSwim>k__BackingField: 0
   swimForce: 100
-  jumpForce: 400
+  jumpForce: 350
   speed: 3
   delayAttackTime: 0.5
   groundCheckL: {fileID: 128452814622380829}
@@ -409,6 +410,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde3e1c53dbd3144f8b80172fa868012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1557503394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128452815429156014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341c9019253ae3c41a4458e65e2f4ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 5
 --- !u!1 &128452816314615003
 GameObject:
   m_ObjectHideFlags: 0
