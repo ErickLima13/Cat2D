@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D playerRigidBody2D;
     private PlayerAnimator playerAnimator;
 
+    public int damageHammer;
+
     public float Horizontal { get; private set; }
 
     [field: SerializeField] public bool IsOnTheGround { get; private set; }
@@ -25,9 +27,9 @@ public class PlayerController : MonoBehaviour
     private bool isLeft;
 
     [Header("Shoot Attack")]
-    [SerializeField] private GameObject ballPrefab;
     [SerializeField] private Transform ballPos;
     [SerializeField] private float speedBall;
+    private GameObject ballPrefab;
 
     [Header("Gravity Settings")]
     [SerializeField] private float gravityDefault;
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
     private void Initialization()
     {
+        ballPrefab = Resources.Load<GameObject>("Ball");
+
         defaultCol = GetComponent<CapsuleCollider2D>();
         playerRigidBody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -248,6 +252,12 @@ public class PlayerController : MonoBehaviour
                     IsSwim = true;
                 }
                 break;
+        }
+
+
+        if(collision.TryGetComponent(out Status status))
+        {
+            status.HealthChange(damageHammer);
         }
     }
 

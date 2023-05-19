@@ -356,6 +356,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidBody2D: {fileID: 0}
+  damageHammer: 5
+  <IsOnTheGround>k__BackingField: 0
+  <IsAttacking>k__BackingField: 0
+  <IsFlying>k__BackingField: 0
+  <IsSwim>k__BackingField: 0
   swimForce: 100
   jumpForce: 400
   speed: 3
@@ -365,7 +370,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  ballPrefab: {fileID: 8911922094074318576, guid: 42cb2750b8f2ef2489a032926fdacd02, type: 3}
   ballPos: {fileID: 667906642}
   speedBall: 3
   gravityDefault: 1
