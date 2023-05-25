@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] public bool IsFlying { get; private set; }
     [field: SerializeField] public bool IsSwim { get; private set; }
 
+    [Header("Power Ups")]
+    [SerializeField] private bool ball;
+    [SerializeField] private bool hammer;
+    [SerializeField] private bool floatingCape;
+
     [Range(0, 1000)] public float swimForce;
     [Range(0, 1000)] public float jumpForce;
     [Range(0, 50)] public float speed;
@@ -77,10 +82,23 @@ public class PlayerController : MonoBehaviour
 
         if (!IsSwim)
         {
-            AttackWithHammer();
-            ShootAttack();
+            if (ball)
+            {
+                ShootAttack();
+            }
+
+            if (hammer)
+            {
+                AttackWithHammer();
+            }
+
+            if (floatingCape)
+            {
+                FloatMove();
+            }
+
             Jump();
-            FloatMove();
+          
         }
         else
         {
