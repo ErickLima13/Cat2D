@@ -6,12 +6,14 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
     private PlayerController player;
+    private SpecialMoves playerSpecial;
 
     public bool IsWaiting { get; private set; }
 
     private void Initialization()
     {
         player = GetComponent<PlayerController>();
+        playerSpecial = GetComponent<SpecialMoves>();
         animator = GetComponent<Animator>();
     }
 
@@ -37,9 +39,9 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetInteger("SpeedX", (int)player.Horizontal);
 
         animator.SetBool("Grounded",  player.IsOnTheGround);
-        animator.SetBool("isFly",player.IsFlying);
-        animator.SetBool("isAttacking", player.IsAttacking);
-        animator.SetBool("isSwim", player.IsSwim);
+        animator.SetBool("isFly",playerSpecial.IsFlying);
+        animator.SetBool("isAttacking", playerSpecial.IsAttacking);
+        animator.SetBool("isSwim", playerSpecial.IsSwim);
 
         animator.SetFloat("SpeedY", player.playerRigidBody2D.velocity.y);
 

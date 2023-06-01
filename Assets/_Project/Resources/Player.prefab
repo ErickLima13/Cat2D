@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 128452815429156008}
   - component: {fileID: 7313713828018296961}
   - component: {fileID: 1557503394}
+  - component: {fileID: 1557503395}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -357,26 +358,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidBody2D: {fileID: 0}
-  damageHammer: 5
   <IsOnTheGround>k__BackingField: 0
-  <IsAttacking>k__BackingField: 0
-  <IsFlying>k__BackingField: 0
-  <IsSwim>k__BackingField: 0
-  swimForce: 100
   jumpForce: 350
   speed: 3
-  delayAttackTime: 0.5
   groundCheckL: {fileID: 128452814622380829}
   groundCheckR: {fileID: 128452816314615002}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  ballPos: {fileID: 667906642}
   speedBall: 3
-  gravityDefault: 1
-  newGravity: 0.3
-  capsuleFly: {fileID: 603988909}
-  capsuleSwim: {fileID: 1538525545}
 --- !u!95 &128452815429156008
 Animator:
   serializedVersion: 5
@@ -423,6 +413,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 5
+--- !u!114 &1557503395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128452815429156014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34040fbca215b0a46a9459257c4dd26b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageHammer: 5
+  <IsAttacking>k__BackingField: 0
+  <IsFlying>k__BackingField: 0
+  <IsSwim>k__BackingField: 0
+  ball: 1
+  hammer: 1
+  floatingCape: 1
+  swimForce: 125
+  delayAttackTime: 0.5
+  ballPos: {fileID: 667906642}
+  newGravity: 0.3
+  capsuleFly: {fileID: 603988909}
+  capsuleSwim: {fileID: 1538525545}
 --- !u!1 &128452816314615003
 GameObject:
   m_ObjectHideFlags: 0
