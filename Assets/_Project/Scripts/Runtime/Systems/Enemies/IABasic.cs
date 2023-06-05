@@ -14,8 +14,6 @@ public class IABasic : MonoBehaviour
 
     private int idWaypoint;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = enemy.gameObject.GetComponent<SpriteRenderer>();
@@ -24,7 +22,6 @@ public class IABasic : MonoBehaviour
         idWaypoint++;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(enemy!= null)

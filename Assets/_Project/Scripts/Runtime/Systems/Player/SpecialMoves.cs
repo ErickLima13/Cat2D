@@ -1,3 +1,4 @@
+using PlasticPipe.PlasticProtocol.Messages;
 using System.Collections;
 using UnityEngine;
 
@@ -13,9 +14,11 @@ public class SpecialMoves : MonoBehaviour
     [field: SerializeField] public bool IsSwim { get; private set; }
 
 
-    [field: SerializeField] public bool Ball { get; private set; }
-    [field: SerializeField] public bool Hammer { get; private set; }
-    [field: SerializeField] public bool FloatingCape { get; private set; }
+    [Header("Power Ups")]
+    [SerializeField] private bool ball;
+    [SerializeField] private bool hammer;
+    [SerializeField] private bool cape;
+    [SerializeField] private bool swim;
 
     [Range(0, 1000)] public float swimForce;
 
@@ -47,8 +50,6 @@ public class SpecialMoves : MonoBehaviour
         gravityDefault = player.playerRigidBody2D.gravityScale;
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Initialization();
@@ -66,31 +67,34 @@ public class SpecialMoves : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateColliders();
 
         if (!IsSwim)
         {
-            if (Ball)
+            if (ball)
             {
                 ShootAttack();
             }
 
-            if (Hammer)
+            if (hammer)
             {
                 AttackWithHammer();
             }
 
-            if (FloatingCape)
+            if (cape)
             {
                 FloatMove();
             }
         }
         else
         {
-            SwimMove();
+            if (swim)
+            {
+                SwimMove();
+            }
+         
         }
     }
 
@@ -219,18 +223,32 @@ public class SpecialMoves : MonoBehaviour
         }
     }
 
-    public void SetBall(bool value)
+    public void UpdateItems(int value)
     {
-        Ball = value;
+        switch (value)
+        {
+            case 0:
+                ball = true;
+                break;
+            case 1:
+                hammer = true;
+                break;
+            case 2:
+                cape = true;
+                break;
+            case 3:
+                swim = true;
+                break;
+        }
     }
 
-    public void SetHammer(bool value)
+    private void OnEnable()
     {
-        Hammer = value;
+        StoreController.OnBuyItem += UpdateItems;
     }
 
-    public void SetFloatingCape(bool value)
+    private void OnDisable()
     {
-        FloatingCape = value;
+        StoreController.OnBuyItem -= UpdateItems;
     }
 }

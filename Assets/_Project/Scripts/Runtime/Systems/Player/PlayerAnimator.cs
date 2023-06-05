@@ -17,13 +17,11 @@ public class PlayerAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Initialization();
     }
 
-    // Update is called once per frame
     void Update()
     {
         AnimationsUpdate();

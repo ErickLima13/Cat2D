@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 
 public class StoreController : MonoBehaviour
 {
+    public static event Action<int> OnBuyItem;
+
     public Sprite[] sprites;
 
-    public string[] awards;
+    public int storeItem;
 
     public GameObject storePanel;
 
@@ -20,17 +23,12 @@ public class StoreController : MonoBehaviour
 
     void Start()
     {
-
+        CloseStore();
     }
 
-
-    void Update()
+    private void OpenStore(int value)
     {
-        print(awards[0]);
-    }
-
-    private void OpenStore()
-    {
+        storeItem = value;
         Time.timeScale = 0;
         storePanel.SetActive(true);
     }
@@ -41,19 +39,10 @@ public class StoreController : MonoBehaviour
         storePanel.SetActive(false);
     }
 
-    public void BuyItem(int name)
+    public void BuyItem(int value)
     {
-        switch (name)
-        {
-            case 0:
-                print(name); 
-                break;
-            case 1:
-                print(name);
-                break;
-            case 2:
-                print(name);
-                break;
-        }
+        value = storeItem;
+        OnBuyItem?.Invoke(value);
+        CloseStore();
     }
 }

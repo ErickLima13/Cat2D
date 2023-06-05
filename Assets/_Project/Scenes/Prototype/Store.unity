@@ -1175,8 +1175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc8336489baaa14aa548ba220e8821d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 0
-  player: {fileID: 0}
+  itemId: 3
 --- !u!1 &428055881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 35}
+  m_AnchoredPosition: {x: -254, y: 68}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1086237565
@@ -1554,7 +1553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1487046817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1574,8 +1573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 188}
-  m_SizeDelta: {x: -350, y: -464.25}
+  m_AnchoredPosition: {x: -95.600006, y: 118.96}
+  m_SizeDelta: {x: -1093.56, y: -697.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487046818
 MonoBehaviour:
@@ -5333,10 +5332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites: []
-  awards:
-  - 
-  - 
-  - 
+  storeItem: 0
   storePanel: {fileID: 1487046816}
 --- !u!4 &1790654542
 Transform:
@@ -5390,7 +5386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 346.3, y: 114.3}
+  m_AnchoredPosition: {x: 653, y: 68}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2074575930
@@ -5437,8 +5433,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 307126755}
-        m_TargetAssemblyTypeName: ItemData, Game
+      - m_Target: {fileID: 1790654541}
+        m_TargetAssemblyTypeName: StoreController, Game
         m_MethodName: BuyItem
         m_Mode: 3
         m_Arguments:
@@ -5629,6 +5625,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 428055882}
     m_Modifications:
+    - target: {fileID: 1557503395, guid: 30a9d9f4eb421274bb849d4501d25c11, type: 3}
+      propertyPath: ball
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557503395, guid: 30a9d9f4eb421274bb849d4501d25c11, type: 3}
+      propertyPath: hammer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 128452815429156011, guid: 30a9d9f4eb421274bb849d4501d25c11, type: 3}
       propertyPath: m_RootOrder
       value: 0
