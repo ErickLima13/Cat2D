@@ -12,10 +12,10 @@ public class SpecialMoves : MonoBehaviour
     [field: SerializeField] public bool IsFlying { get; private set; }
     [field: SerializeField] public bool IsSwim { get; private set; }
 
-    [Header("Power Ups")]
-    [SerializeField] private bool ball;
-    [SerializeField] private bool hammer;
-    [SerializeField] private bool floatingCape;
+
+    [field: SerializeField] public bool Ball { get; private set; }
+    [field: SerializeField] public bool Hammer { get; private set; }
+    [field: SerializeField] public bool FloatingCape { get; private set; }
 
     [Range(0, 1000)] public float swimForce;
 
@@ -73,17 +73,17 @@ public class SpecialMoves : MonoBehaviour
 
         if (!IsSwim)
         {
-            if (ball)
+            if (Ball)
             {
                 ShootAttack();
             }
 
-            if (hammer)
+            if (Hammer)
             {
                 AttackWithHammer();
             }
 
-            if (floatingCape)
+            if (FloatingCape)
             {
                 FloatMove();
             }
@@ -217,5 +217,20 @@ public class SpecialMoves : MonoBehaviour
                 IsSwim = false;
                 break;
         }
+    }
+
+    public void SetBall(bool value)
+    {
+        Ball = value;
+    }
+
+    public void SetHammer(bool value)
+    {
+        Hammer = value;
+    }
+
+    public void SetFloatingCape(bool value)
+    {
+        FloatingCape = value;
     }
 }
