@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isLeft;
 
+    public int coins;
+
     public void SetIsOnTheGround(bool isOnTheGround)
     {
         IsOnTheGround = isOnTheGround;

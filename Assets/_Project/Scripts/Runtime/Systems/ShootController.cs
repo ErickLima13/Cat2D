@@ -14,4 +14,9 @@ public class ShootController : MonoBehaviour
             status.HealthChange(damageBall);
         }
     }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject, 0.2f);
+    }
 }
