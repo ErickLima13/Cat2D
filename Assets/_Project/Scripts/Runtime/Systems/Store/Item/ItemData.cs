@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemData : MonoBehaviour
@@ -14,15 +12,15 @@ public class ItemData : MonoBehaviour
 
     private void Start()
     {
-        storeController = FindObjectOfType<StoreController>();  
-        spriteItem= GetComponent<SpriteRenderer>();
+        storeController = FindObjectOfType<StoreController>();
+        spriteItem = GetComponent<SpriteRenderer>();
 
         spriteItem.sprite = storeController.sprites[itemId];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out SpecialMoves specialMoves))
+        if (collision.TryGetComponent(out SpecialMoves specialMoves))
         {
             OnOpenStore?.Invoke(itemId);
         }

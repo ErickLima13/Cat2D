@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -29,15 +28,15 @@ public class PlayerAnimator : MonoBehaviour
 
     public void AnimatorSetTrigger(string trigger)
     {
-        animator.SetTrigger(trigger); 
+        animator.SetTrigger(trigger);
     }
 
     private void AnimationsUpdate()
     {
         animator.SetInteger("SpeedX", (int)player.Horizontal);
 
-        animator.SetBool("Grounded",  player.IsOnTheGround);
-        animator.SetBool("isFly",playerSpecial.IsFlying);
+        animator.SetBool("Grounded", player.IsOnTheGround);
+        animator.SetBool("isFly", playerSpecial.IsFlying);
         animator.SetBool("isAttacking", playerSpecial.IsAttacking);
         animator.SetBool("isSwim", playerSpecial.IsSwim);
 

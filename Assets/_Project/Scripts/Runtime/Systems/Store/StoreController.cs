@@ -23,7 +23,7 @@ public class StoreController : MonoBehaviour
 
     [SerializeField] private List<int> items;
 
-    
+
     private void OnEnable()
     {
         ItemData.OnOpenStore += OpenStore;
@@ -60,7 +60,7 @@ public class StoreController : MonoBehaviour
     public void BuyItem(int value)
     {
         value = storeItem;
-     
+
         int price = int.Parse(priceItem.text);
 
         if (!items.Contains(value) && player.coins >= price)
@@ -68,6 +68,7 @@ public class StoreController : MonoBehaviour
             items.Add(value);
             player.coins -= price;
             OnBuyItem?.Invoke(value);
+
         }
 
         CloseStore();

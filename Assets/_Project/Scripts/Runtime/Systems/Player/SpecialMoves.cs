@@ -1,4 +1,3 @@
-using PlasticPipe.PlasticProtocol.Messages;
 using System.Collections;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ public class SpecialMoves : MonoBehaviour
     [Header("Gravity Settings")]
     [SerializeField] private float newGravity;
     private float gravityDefault;
-   
+
 
     [Header("Colliders")]
     private CapsuleCollider2D defaultCol;
@@ -94,7 +93,7 @@ public class SpecialMoves : MonoBehaviour
             {
                 SwimMove();
             }
-         
+
         }
     }
 
@@ -156,9 +155,9 @@ public class SpecialMoves : MonoBehaviour
 
     private void FloatMove()
     {
-        if (Input.GetButtonDown("Jump") && ! player.IsOnTheGround && !IsFlying && !IsAttacking)
+        if (Input.GetButtonDown("Jump") && !player.IsOnTheGround && !IsFlying && !IsAttacking)
         {
-            player.playerRigidBody2D.velocity = new( player.playerRigidBody2D.velocity.x, newGravity);
+            player.playerRigidBody2D.velocity = new(player.playerRigidBody2D.velocity.x, newGravity);
             IsFlying = true;
             ChangeGravityScale(newGravity);
         }
