@@ -5,21 +5,30 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinsUI;
 
-    private PlayerController player;
+    private EconomyController economy;
 
-    private void Start()
+    private void OnEnable()
     {
-        player = FindObjectOfType<PlayerController>();
+        economy.OnUpdateCoins += UpdateCoins;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        UpdateCoins();
+        economy.OnUpdateCoins -= UpdateCoins;
     }
 
-    private void UpdateCoins()
+    private void Awake()
     {
-        coinsUI.text = " x " + player.coins.ToString();
+        economy = FindObjectOfType<EconomyController>();
+
+        UpdateCoins(economy.GetCoins());
     }
 
+    public void UpdateCoins(int value)
+    {
+        print(value);
+
+        value = economy.GetCoins();
+        coinsUI.text = " x " + value.ToString();
+    }
 }

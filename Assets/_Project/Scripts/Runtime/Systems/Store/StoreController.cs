@@ -8,7 +8,7 @@ public class StoreController : MonoBehaviour
 {
     public static event Action<int> OnBuyItem;
 
-    private PlayerController player;
+    private EconomyController economy;
 
     private int storeItem;
 
@@ -34,9 +34,9 @@ public class StoreController : MonoBehaviour
         ItemData.OnOpenStore -= OpenStore;
     }
 
-    void Start()
+    void Awake()
     {
-        player = FindObjectOfType<PlayerController>();
+        economy = FindObjectOfType<EconomyController>();
 
         CloseStore();
     }
@@ -63,12 +63,11 @@ public class StoreController : MonoBehaviour
 
         int price = int.Parse(priceItem.text);
 
-        if (!items.Contains(value) && player.coins >= price)
+        if (!items.Contains(value) && economy.GetCoins() >= price)
         {
-            items.Add(value);
-            player.coins -= price;
+            items.Add(value);   
+            economy.RemoveCoins(price);
             OnBuyItem?.Invoke(value);
-
         }
 
         CloseStore();
