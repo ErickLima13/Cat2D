@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<language>
+
+	<interface name = "interface_titulo">
+
+		<textos>
+
+			<txt>press Esc to options</txt>
+			<txt>press Enter to play</txt>
+					
+		</textos>
+		
+	</interface>
+	
+	<interface name = "interface_loja">
+
+		<textos>
+
+			<txt>Hammer</txt>
+			<txt>Cape</txt>
+			<txt>Swim</txt>
+
+		</textos>
+
+	</interface>
+			   
+	
+	
+</language>
